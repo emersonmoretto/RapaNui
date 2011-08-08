@@ -6,6 +6,13 @@ It's a kindle of Nagios, but more simple. Don't requires install a client on you
 
 It can be used as Inventory Manager (for yours servers/computers).
 
+See the screen shots:
+
+https://github.com/emersonmoretto/RapaNui/blob/master/public/images/Screen%20shot%202011-08-08%20at%2015.38.24.png
+https://github.com/emersonmoretto/RapaNui/blob/master/public/images/Screen%20shot%202011-08-08%20at%2015.39.47.png
+https://github.com/emersonmoretto/RapaNui/blob/master/public/images/Screen%20shot%202011-08-08%20at%2015.40.06.png
+https://github.com/emersonmoretto/RapaNui/blob/master/public/images/Screen%20shot%202011-08-08%20at%2015.40.20.png
+
 Features:
 
 	- Monitoring ping, disks and telnet ports and send e-mail
