@@ -1,12 +1,14 @@
 == Welcome to RapaNui
 
-RapaNui is a simple server manager application in Rails 3.0.9
+RapaNui is a simple hosts/services monitoring application in Rails 3.0.9. 
 
 It's a kindle of Nagios, but more simple. Don't requires install a client on yours servers machines. 
 
+It can be used as Inventory Manager (for yours servers/computers).
+
 Features:
 
-	- Monitoring ping, disks and telnet ports of yours servers and send e-mail
+	- Monitoring ping, disks and telnet ports and send e-mail
 	- 1-Click check (for linux servers):
 		- cpuinfo
 		- Disk usage (w/ pie chart)
@@ -16,9 +18,6 @@ Features:
 		- ifconfig
 		- du
 		- uptime
-
-
-It can be used as Inventory Manager (for yours servers/computers).
 
 
 == Getting Started
