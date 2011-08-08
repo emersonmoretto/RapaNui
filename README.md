@@ -14,6 +14,8 @@ https://github.com/emersonmoretto/RapaNui/raw/master/public/images/Screen%20shot
 https://github.com/emersonmoretto/RapaNui/raw/master/public/images/Screen%20shot%202011-08-08%20at%2015.40.20.png
 https://github.com/emersonmoretto/RapaNui/raw/master/public/images/Screen%20shot%202011-08-08%20at%2015.39.47.png
 
+RapaNui was implemented by emoretto and alfredo at lsi usp br
+
 Features
 -------
 
@@ -37,6 +39,10 @@ After checkout just type
 	bundle install
 	rake db:migrate
 	rails s
+
+http://localhost:3000
+Login: admin
+Password: passwd
 
 * Ruby 1.9.2 is required.
 
