@@ -1,0 +1,10 @@
+$('#alive<%= @server.id %>').html ("<%= @str_result %>");
+
+if("<%= @str_result %>" == "Off" )
+	$('#alive<%= @server.id %>').addClass( "status_false")
+else
+	$('#alive<%= @server.id %>').addClass("status_true")
+
+
+$('#alive<%= @server.id %>').effect('highlight', {}, 1000);
+

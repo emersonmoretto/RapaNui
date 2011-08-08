@@ -1,0 +1,162 @@
+[<a href="#" onclick="pingAll();"  data-remote="true">Ping All</a>]
+
+<%= render 'servers/searchform' %>
+
+<% @server_racks.each do |server_rack| %>
+
+<!-- Rack Div -->
+
+<div title="<%= server_rack.location %>" style="border: 1px solid #AAFFAA; width: 75%; padding: 8px; margin:5px; background-color: #EFFFEF">
+  
+	<div style="float:left; height:30px;">
+		<span style="font-family:chunk; font-size:18px; margin:15px; padding: 5px;"><%= server_rack.name %>&nbsp;&nbsp;</span>
+ 		<%= link_to 'Edit', edit_server_rack_path(server_rack) %>
+	</div>
+	
+	<div style="float:right; top:0px;">
+		<span style="font-family:chunk; font-size:18px; margin:1px; padding: 1px;">
+		<%= server_rack.temperature%></span>
+	</div>
+	<br/>
+	
+	<% server_rack.servers.each do |server| %>
+
+
+
+
+	<!-- Server Div -->
+	
+		<div id="server_<%= server.id%>" title=" <%= server.desc %>" style=" padding: 10px; margin:5px; margin-bottom:0px; width: 90%; padding-left:50px; background-color: #FFFFFF">
+    		
+			<%= image_tag server.operational_system.avatar.url, :width => "16px", :height => "16px" %>&nbsp;
+			<a class="linkcat" href="javascript:collapseServer('<%= server.id%>');">
+				<span style="font-weight: bold; margin-right: 10px;"><%=server.name%></span>
+ 				<span style="margin-right: 10px;"><%=server.ip%></span></a>
+			&nbsp;&nbsp;
+			[<%= link_to 'Show', server %>]&nbsp;&nbsp;
+			[<%= link_to 'Ping', server_path(server)+"/ping" , :remote => true , :class => "alive_link" %>]
+			<span style="margin-left: 10px;"  id="alive<%= server.id%>"></span>
+			&nbsp;
+			<%= image_tag "/images/cloud.png", :width => "16px", :height => "16px", :title => "Virtual" if !server.type.name.index("Virtual").nil? %>
+			
+		</div>
+	
+
+
+	<!-- Collapse Div -->
+
+	<div id="div_server_<%= server.id%>" class="list" style="display:none; 
+		 padding: 10px; margin:5px; margin-top:0px; margin-bottom:0px; width: 90%; padding-left:50px; background-color: #FFFFFF; border-top:none;"> 
+		<div style="width: 340px; float:left;padding: 5px; padding-top:0px;">
+			<p><b>Services:</b>
+			<% if(!server.ports.nil?)
+				server.ports.split(" ").each do |port|
+					serv = port.split(":")[0]
+		 			port = port.split(":")[1]
+		 			 %>
+					<li>
+						<%= serv %> @ <%= link_to port, servers_telnet_url(params = {:id => server, :p => port}), :remote => true %>  
+						<span id="telnet_<%=server.id%>_<%=port%>"></span>
+					</li>
+					<%
+				 end
+				end
+			%>
+			</p>
+					
+
+			
+			[<%= link_to 'CPU Info', servers_command_url(params = {:id => server, :cmd => "cpuinfo"}), :remote => true %>  ]	
+			[<%= link_to 'Disks', servers_disks_url(server), :remote => true %>]				
+			[<%= link_to 'Top', servers_command_url(params = {:id => server, :cmd => "top"}), :remote => true %>  ]	
+			[<%= link_to 'Memory', servers_command_url(params = {:id => server, :cmd => "freem"}), :remote => true %>  ]	
+			[<%= link_to 'Who', servers_command_url(params = {:id => server, :cmd => "who"}), :remote => true %>  ]	
+			[<%= link_to 'IfConfig', servers_command_url(params = {:id => server, :cmd => "ifconfig"}), :remote => true %>  ]	
+			[<%= link_to 'du', servers_command_url(params = {:id => server, :cmd => "du"}), :remote => true %>  ]	
+			[<%= link_to 'uptime', servers_command_url(params = {:id => server, :cmd => "uptime"}), :remote => true %>  ]	
+			[<%= link_to 'netstat', servers_command_url(params = {:id => server, :cmd => "netstat"}), :remote => true %>  ]	
+						
+			[<a href="javascript:animatedcollapse.hide('info_server_<%=server.id%>');">Close</a>]				
+			
+			
+		</div>
+		
+		<div style="float:left;padding: 5px; width: 240px; ">
+
+			<p>
+			  <b>Type:</b>
+			  <%= server.type.name %>
+			</p>
+			<p><b>Depends of:</b>
+			  <%= link_to server.depends_from.name, server.depends_from  if(!server.depends_from.nil?)  %>
+			</p>
+			
+			<p><b>Description:</b>
+			  <%= server.desc[0..75] %>...
+			</p>
+		</div>
+		
+		<div style="float:right;padding: 5px;">
+			<%= image_tag server.avatar.url(:thumb), :style => "border: 1px solid black" if !server.avatar.nil?  %>
+			<br/>
+			<%= link_to 'Edit server', edit_server_path(server) %>
+		</div>	
+		
+	</div>
+	
+	<!-- Info Collapse Div -->
+		
+	<div id="info_server_<%= server.id%>" style="display:none; overflow: auto; border: 1px solid green; border-top:none; width:90%; margin-left:20px; padding: 10px; padding-top:10px; background-color: white;">
+	</div>	
+
+	<script type="text/javascript"> 
+ 		animatedcollapse.addDiv('div_server_<%= server.id%>', 'fade=1,height=160px')
+		animatedcollapse.addDiv('info_server_<%= server.id%>', 'fade=1,height=400px')
+	</script>
+
+	<% end %> <!-- End Server Loop -->
+</div> <!-- End Rack Div -->
+<br/>
+<% end %>
+
+<br />
+
+[<%= link_to 'New Server', new_server_path %>]
+[<%= link_to 'New Rack', new_server_rack_path %>]
+<%= render 'servers/ping_all' %>
+
+
+
+<!-- Collapse Divs init -->
+<script type="text/javascript"> 
+ animatedcollapse.ontoggle=function($, divobj, state){ 	
+}
+animatedcollapse.init()
+
+
+function collapseServer(id){
+	
+	animatedcollapse.toggle("div_server_"+id); 
+	animatedcollapse.hide("info_server_"+id);
+	
+	//Border manager
+	animatedcollapse.ontoggle=function($, divobj, state){
+		
+		if(divobj.id.indexOf("div_server") < 0)
+			return; 		
+		id = divobj.id.substr(divobj.id.lastIndexOf("_")+1,divobj.id.length)
+		
+		if( state == "block"){
+			$("#server_"+id).css("border","1px solid green")	
+			$("#server_"+id).css("border-bottom","none")
+			
+			$("#div_server_"+id).css("border","1px solid green")	
+			$("#div_server_"+id).css("border-top","none")			
+		}else{
+			$("#server_"+id).css("border","none")
+			$("#div_server_"+id).css("border","none")			
+		}
+	}
+}
+
+</script>

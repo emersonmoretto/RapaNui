@@ -1,0 +1,40 @@
+== Welcome to RapaNui
+
+RapaNui is a simple server manager application in Rails 3.0.9
+
+It's a kindle of Nagios, but more simple. Don't requires install a client on yours servers machines. 
+
+Features:
+
+	- Monitoring ping, disks and telnet ports of yours servers and send e-mail
+	- 1-Click check (for linux servers):
+		- cpuinfo
+		- Disk usage (w/ pie chart)
+		- top
+		- Memory
+		- who
+		- ifconfig
+		- du
+		- uptime
+
+
+It can be used as Inventory Manager (for yours servers/computers).
+
+
+== Getting Started
+
+After checkout just type
+
+bundle install
+rake db:migrate
+rails s
+
+* Ruby 1.9.2 is required.
+
+* ImageMagick is required.
+
+for Mac OSX:
+sudo port install ImageMagick
+
+for Ubuntu: 
+sudo apt-get install imagemagick

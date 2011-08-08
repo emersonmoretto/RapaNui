@@ -1,0 +1,161 @@
+<script>
+
+ function togglePWD(){
+ 	if($('#btnPWD').html() == 'Show'){
+ 		$('#pwd').css('display','block');
+ 		$('#btnPWD').html('Hide');
+ 	}else{
+ 		$('#pwd').css('display','none');
+ 		$('#btnPWD').html('Show');
+ 	}
+ }
+
+</script>
+
+
+<p id="notice"><%= notice %></p>
+
+<p alt="<%= @server.desc %>">
+  <h2><%= @server.name %></h2>
+</p>
+
+<%= image_tag @server.avatar.url(:medium) %>
+
+<p>
+  <b>Desc:</b>
+  <%= @server.desc %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @server.type.name %>
+</p>
+
+<p>
+  <b>Rack:</b>
+  <%= @server.server_rack.name %>
+</p>
+
+<p>
+  <b>Depends of:</b>
+  <%= link_to @server.depends_from.name, @server.depends_from  if(!@server.depends_from.nil?)  %>
+</p>
+
+<p>
+  <b>Ip:</b>
+  <%= @server.ip %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%= @server.username %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <p id="pwd" style="display:none"><%= @server.password %></p>
+  <button id="btnPWD" type="button" onclick="togglePWD();">Show</button>
+</p>
+
+<p>
+  <b>SSH Port:</b>
+  <%= @server.ssh_port %>
+</p>
+
+<p>
+ <b>Services:</b>
+<% 
+if(!@server.ports.nil?)
+@server.ports.split(" ").each do |port|
+serv =  port.split(":")[0] 
+port = port.split(":")[1] %>
+   
+<li>
+<%= serv %> @ <%= link_to port, servers_telnet_url(params = {:id => @server, :p => port}), :remote => true %>  <span id="telnet_<%=@server.id%>_<%=port%>"></span>
+</li>
+
+<%
+end
+end
+%>
+
+</p>
+
+<p>
+  <b>Ping Monitoring:</b>
+  <%= @server.ping_monitor %>
+</p>
+
+<p>
+  <b>Telnet Monitoring:</b>
+  <%= @server.telnet_monitor %>
+</p>
+
+<p>
+  <b>Alive:</b>
+  <%= @server.alive %>
+</p>
+
+
+
+
+<p>
+  <b>Os:</b>
+  <%= @server.operational_system.name %>
+</p>
+
+<p>
+  <b>Contact:</b>
+  <%= @server.contact %>
+</p>
+
+<p>
+  <b>Contact email:</b>
+  <%= @server.contact_email %>
+</p>
+
+<p>
+  <b>Hw specs:</b>
+  <%= @server.hw_specs %>
+</p>
+
+<p>
+  <b>Visible label:</b>
+  <%= @server.visible_label %>
+</p>
+
+<p>
+  <b>Model:</b>
+  <%= @server.model %>
+</p>
+
+<p>
+  <b>Warranty expiration:</b>
+  <%= @server.warranty_expiration %>
+</p>
+
+<p>
+  <b>Serial number:</b>
+  <%= @server.serial_number %>
+</p>
+
+
+<p>
+  <b>Alive:</b>
+  <span id="alive<%= @server.id %>">...</span>
+</p>
+
+
+
+
+
+<%= link_to 'Edit', edit_server_path(@server) %> |
+<%= link_to 'Ping', server_path(@server)+"/ping" , :remote => true , :class => "alive_link" %>|
+<%= link_to 'Back', servers_path %>
+
+
+<script>
+
+	$(".alive_link").click();	
+
+</script>

@@ -1,0 +1,46 @@
+<%= form_for(@server_rack) do |f| %>
+  <% if @server_rack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@server_rack.errors.count, "error") %> prohibited this server_rack from being saved:</h2>
+
+      <ul>
+      <% @server_rack.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :desc %><br />
+    <%= f.text_field :desc %>
+  </div>
+
+  <div class="field">
+    <%= f.label :contact_email %> (Use "," to add more e-mails)<br />
+    <%= f.text_field :contact_email, :size => 100 %>
+  </div>
+  <div class="field">
+    <%= f.label :temperature_monitor %><br />
+    <%= f.check_box :temperature_monitor %>
+  </div>
+
+
+
+<div class="field">
+    <%= f.label :temperature_script %><br />
+    <%= f.text_area :temperature_script %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

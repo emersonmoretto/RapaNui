@@ -1,0 +1,26 @@
+<h1>Operational Systems</h1>
+
+
+<br/>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @operational_systems.each do |operational_system| %>
+  <tr>
+    <td><%= image_tag operational_system.avatar.url %> <%= operational_system.name %> </td>
+    <td><%= link_to 'Show', operational_system %></td>
+    <td><%= link_to 'Edit', edit_operational_system_path(operational_system) %></td>
+    <td><%= link_to 'Destroy', operational_system, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Operational system', new_operational_system_path %>

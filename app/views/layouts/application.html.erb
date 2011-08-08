@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RapaNui</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "animatedcollapse" %>
+  <%= javascript_include_tag "jquery-ui.min" %>
+  <%= javascript_include_tag "highcharts" %>
+  
+  <%= csrf_meta_tag %>
+  
+ <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+
+</head>
+<body>
+	
+ 	<h1 style="line-height: 10px; margin-bottom:5px; font-size: 32px;">Rapa Nui</h1>
+	<span style="font-size:10px; color: #A0A0A0">
+	<%= ["Open-source server management","The ultimate hardware worship system","The Facebook of servers",
+		"Praise your server racks like a RapaNui totem", "Offer a virgin to RapaNui", "Even Chuck Norris uses RapaNui",
+		"RapaNui facts: RapaNui was used on Nasa's Apollo 11 project"].shuffle!.first %></span>
+	<br/>
+	<div >
+		<td>[<%= link_to 'Home', ServerRack %>]</td>
+		<td>[<%= link_to 'Servers', Server %>]</td>
+		<td>[<%= link_to 'Operational Systems', OperationalSystem %>]</td>
+		<td>[<%= link_to 'HW Types', Type %>]</td>
+		<td>[<%= link_to 'Logout', :controller => :accounts, :action => :logout %>]</td>
+	<div>	
+	<br/>	
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+$('#info_server_<%=@server.id%>').html ("<div id='cmd'><pre><%= @str_result.html_safe.gsub(/\n/,'<br/>').html_safe %></pre></div>");
+$('#cmd').css('font-family' , 'Courier New');
+
+
+
+animatedcollapse.show('info_server_<%= @server.id%>');
+

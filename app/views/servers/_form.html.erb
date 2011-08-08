@@ -1,0 +1,143 @@
+<%= form_for @server, :html => { :multipart => true } do |f| %>
+  <% if @server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h2>
+
+      <ul>
+      <% @server.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<fieldset>
+	<legend>Info</legend>
+	
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+<div class="field">
+	 <%= f.label "Server image or photo" %><br />
+	<%= f.file_field :avatar %>
+</div>
+
+  <div class="field">
+    <%= f.label :desc %><br />
+    <%= f.text_area :desc, :rows => 6 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :type_id %><br />
+    <%=f.select :type_id, Type.all.collect { |i| [i.name, i.id] }%><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :server_rack_id %><br />
+  	<%=f.select :server_rack_id, ServerRack.all.collect { |i| [i.name, i.id] }%><br>
+  </div>
+
+<div class="field">
+    <%= f.label "Depends of:" %><br />
+    <%=f.select :dependent_server_id, Server.all.collect { |i| [i.name, i.id] }, :include_blank => true %><br>
+  </div>
+
+<div class="field">
+    <%= f.label :operational_system_id %><br />
+   	<%=f.select :operational_system_id, OperationalSystem.all.collect { |i| [i.name, i.id] }%><br>
+  </div>
+
+</fieldset>
+
+<fieldset>
+	<legend>Access</legend>
+	
+  <div class="field">
+    <%= f.label :ip %><br />
+    <%= f.text_field :ip %>
+  </div>
+
+  <div class="field">
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password, :type => :password %>
+  </div>
+
+  <div class="field">
+    <%= f.label :ssh_port %><br />
+    <%= f.text_field :ssh_port %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Ports with blank space separator (ex: web:80 oracle:1031)" %><br />
+    <%= f.text_field :ports, :size => 100 %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Enabled?" %><br />
+    <%= f.check_box :alive %>
+  </div>
+</fieldset>
+
+  
+
+<fieldset>
+	<legend>Contact and monitoring</legend>
+  <div class="field">
+    <%= f.label :contact %><br />
+    <%= f.text_field :contact %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_email %> (Use "," to add more e-mails)<br />
+    <%= f.text_field :contact_email, :size => 100 %>
+  </div>
+ <div class="field">
+    <%= f.label :ping_monitor %><br />
+    <%= f.check_box :ping_monitor %>
+  </div>
+  <div class="field">
+    <%= f.label :telnet_monitor %><br />
+    <%= f.check_box :telnet_monitor %>
+  </div>
+  <div class="field">
+    <%= f.label :disk_monitor %><br />
+    <%= f.check_box :disk_monitor %>
+  </div>
+</fieldset>
+
+  <div class="field">
+    <%= f.label :hw_specs %><br />
+    <%= f.text_area :hw_specs, :rows => 4 %>
+  </div>
+  <div class="field">
+    <%= f.label :visible_label %><br />
+    <%= f.text_field :visible_label %>
+  </div>
+  <div class="field">
+    <%= f.label :model %><br />
+    <%= f.text_field :model %>
+  </div>
+  <div class="field">
+    <%= f.label :warranty_expiration %><br />
+    <%= f.date_select :warranty_expiration %>
+  </div>
+  <div class="field">
+    <%= f.label :serial_number %><br />
+    <%= f.text_field :serial_number %>
+  </div>
+  
+  
+  <div class="field">
+    <%= f.label :application_test_script %><br />
+    <%= f.text_area :application_test_script %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

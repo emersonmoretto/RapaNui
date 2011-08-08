@@ -1,0 +1,27 @@
+<h1>Login</h1>
+
+ <% [:notice, :info, :error].each do |key| %>
+   <% if flash[key] %>
+   <div class="<%= key %>" id="flash">
+     <%= flash[key] %>
+   </div>
+<br/>
+   <% end %>
+ <% end %>
+
+<%= form_tag :action=>"doLogin" do %>
+  
+  <div class="field">
+    <%= label_tag :login %><br />
+    <%= text_field_tag :login %>
+  </div>
+  
+  <div class="field">
+    <%= label_tag :passwd %><br />
+    <%= password_field_tag :passwd %>    
+  </div>
+  
+  <div class="actions">
+    <%= submit_tag "Login" %>
+  </div>
+<% end %>

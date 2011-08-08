@@ -1,0 +1,70 @@
+$('#info_server_<%=@server.id%>').html ("<pre id='courier'><%= @str_result.html_safe.gsub(/\n/,'<br/>').html_safe %></pre>");
+$('#courier').css('font-family' , 'Courier New');
+animatedcollapse.show('info_server_<%= @server.id%>');
+
+
+
+<% counter = 0%>
+<% @file_systems.each { |partition| %>
+<% counter = counter + 1 %>
+
+try{
+		$('#info_server_<%=@server.id%>').append("<div id='chart<%=@server.id%>_<%=counter%>' style='width:270px;heigth:270px;float:left;'></div>")
+		
+         var chart<%=@server.id%>;
+         
+          $(function() {
+            chart<%=@server.id%> = new Highcharts.Chart({
+              chart: {
+                renderTo: 'chart<%=@server.id%>_<%=counter%>'
+              },
+              title: {
+                text: "<%=partition["file_system"]%>"
+              },
+              defaultSeriesType: {
+                text: "Pie" 
+              },
+              plotOptions: {
+               pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+               }
+              },
+              tooltip: {
+               formatter: function() {
+                    return  Math.round(this.percentage)+'%';
+                 }
+              },
+              
+              
+              
+              
+              
+              series: [{
+                <%
+                  rdata = ""
+           		  rdata << "['free', #{100-Integer(partition["capacity"])}],"
+                  rdata << "['used', #{partition["capacity"].strip}],"
+                  rdata = rdata[0,rdata.length-1]
+                %>
+              
+                data: [<%=rdata%>],   
+                type: "pie"        
+              }]
+            });
+          });
+}catch(e){
+ alert(e)
+}
+
+<% } %>
+
+
+$('.highcharts-title').attr({y : "50"});
+//$('.highcharts-point').attr({transform : "translate(80, -50)"});
+//$('.highcharts-legend').attr({transform : "translate(43.7891, 230)"});
+
+//alert($('#info_server_<%=@server.id%>').html())
+
+
+

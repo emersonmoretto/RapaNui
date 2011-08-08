@@ -1,0 +1,21 @@
+<%= render 'searchform' %>
+   	
+<div style="border: 1px solid #AAFFAA; width: 70%; padding: 8px; margin:5px; background-color: #EFFFEF">
+
+<% @servers.each do |server| %>
+
+<div title=" <%= server.desc %>" style="border: 1px solid EEFFEE; padding: 10px; margin:5px; padding-left:50px; background-color: #FFFFFF">
+    
+	<span style="font-weight: bold; margin-right: 10px;"><%= server.name %></span>
+ 	<span style="margin-right: 10px;"><%= server.ip %></span> 	
+	<%= link_to 'Show', server %>
+	<span style="margin-left: 10px;" class="status_<%= server.alive%>"><%= server.alive ==  TRUE ? "On-line" : "Off-line" %></span>
+
+</div>
+
+<% end %>
+
+</div>
+
+
+<br />

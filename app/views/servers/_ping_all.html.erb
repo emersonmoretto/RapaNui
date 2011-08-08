@@ -1,0 +1,27 @@
+<script>
+function pingAll(){
+
+	try{
+		$(".alive_td").html("..");
+		
+		var alives = $(".alive_link");
+				
+		for(var i=0; i < alives.length ;i++){
+			try{
+				$.ajax({  
+                type: "GET", url: alives[i].href+"" , complete: function(data){ 
+               	     eval(data.responseText);
+                	}  
+            	});	
+			}catch(e){alert(e)}
+		}	
+	}catch(e){
+		alert(e);
+	}	
+
+}
+
+
+
+//pingAll();
+</script>

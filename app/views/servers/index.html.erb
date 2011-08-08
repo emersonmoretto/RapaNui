@@ -1,0 +1,52 @@
+<%= render 'searchform' %>
+
+<h1>Servers</h1>
+
+<div style="border: 1px solid #AAFFAA; width: 75%; padding: 2px; margin:5px; background-color: #EFFFEF">
+
+<table>
+  <tr >
+    <th>Name</th>    
+    <th>Type</th>
+    <th>Rack</th>
+    <th>Ip</th>
+    <th>Alive</th>
+    <th>Os</th>
+    <th>Contact</th>
+    <th>Model</th>
+
+  </tr>
+<% c = 0%>
+<% @servers.each do |server| %>
+  <% c+=1 
+	 if(c%2==0) 
+		clazz = "odd"
+	 else 
+		clazz = "even"
+	 end	
+	%>
+	
+  <tr class="<%=clazz%>" title="<%= server.desc %>">
+    <td style="font-weight:bold"><%= link_to server.name, server %></td>   
+    <td><%= server.type.name %></td>
+    <td><%= server.server_rack.name %></td>
+    <td><%= server.ip %></td>
+    <td id="alive<%=server.id%>" class="alive_td" style="position: relative;">... </td>
+    <td><%= server.operational_system.name %></td>
+    <td><a href="mailto:<%= server.contact_email %>"><%= server.contact %></a></td>
+	<td><%= server.model %></td>
+    <td><%= link_to 'Edit', edit_server_path(server) %></td>
+    <td><%= link_to 'Destroy', server, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Ping', server_path(server)+"/ping" , :remote => true , :class => "alive_link" %><td>
+  </tr>
+<% end %>
+</table>
+
+</div>
+<br />
+
+
+<%= link_to 'New Server', new_server_path %>
+<a href="#" onclick="pingAll();"  data-remote="true">Ping All</a>
+
+<%= render 'ping_all' %>

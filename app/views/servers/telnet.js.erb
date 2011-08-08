@@ -1,0 +1,8 @@
+$('#telnet_<%= @server.id %>_<%= @port %>').html ("<%= @str_result %>");
+
+if("<%= @str_result %>" == "Connected!" )
+	$('#telnet_<%= @server.id %>_<%= @port %>').addClass( "status_true")
+else
+	$('#telnet_<%= @server.id %>_<%= @port %>').addClass("status_false")
+
+$('#telnet_<%= @server.id %>_<%= @port %>').effect('highlight', {}, 1000);

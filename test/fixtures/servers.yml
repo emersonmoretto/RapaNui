@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  desc: MyText
+  type_id: 1
+  rack_id: 1
+  ip: MyString
+  alive: false
+  os_id: MyString
+  contact: MyString
+  contact_email: MyString
+  hw_specs: MyText
+  visible_label: MyString
+  model_id: 1
+  warranty_expiration: 2011-07-29
+  serial_number: MyString
+
+two:
+  name: MyString
+  desc: MyText
+  type_id: 1
+  rack_id: 1
+  ip: MyString
+  alive: false
+  os_id: MyString
+  contact: MyString
+  contact_email: MyString
+  hw_specs: MyText
+  visible_label: MyString
+  model_id: 1
+  warranty_expiration: 2011-07-29
+  serial_number: MyString
